@@ -49,9 +49,7 @@ loadMoreBtn.addEventListener('click', async () => {
     page += 1;
     try {
         const images = await fetchImages(query, page);
-        const markup = createImageMarkup(images);
-        gallery.insertAdjacentHTML('beforeend', markup);
-        lightbox.refresh();
+        createImageMarkup(images, lightbox); // Передаємо lightbox
     } catch (error) {
         console.error(error);
         iziToast.error({

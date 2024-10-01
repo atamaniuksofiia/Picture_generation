@@ -2,10 +2,6 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { BASE_URL, API_KEY } from './pixabay-api.js';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
-const lightbox = new SimpleLightbox('.gallery a');
 
 export async function fetchImages(query, page = 1) {
     const params = new URLSearchParams({
@@ -34,7 +30,7 @@ export async function fetchImages(query, page = 1) {
     }
 }
 
-export function createImageMarkup(images) {
+export function createImageMarkup(images, lightbox) {
     const markup = images
         .map(
             ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
@@ -49,11 +45,10 @@ export function createImageMarkup(images) {
                         <p class="info-item"><span>Downloads:</span> ${downloads}</p>
                     </div>
                 </li>
-            `
-        )
+            `)
         .join('');
 
     const gallery = document.querySelector('.gallery');
     gallery.innerHTML = markup;
-    lightbox.refresh();
+    lightbox.refresh(); // Оновлюємо lightbox
 }
