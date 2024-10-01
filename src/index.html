@@ -5,19 +5,39 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vanilla App Template</title>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.10.0/simple-lightbox.min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <load src="./partials/header.html" icon-path="img/sprite.svg#logo" />
+    
+<form class="search-form">
+  <input type="text" class="input-form" name="query" placeholder="Search images..." required >
+  <button type="submit" class="btn-form js-btn">Search</button>
+</form>
 
-    <main>
-      <!-- Loads the specified .html file -->
-      <load src="./partials/vite-promo.html" />
-      <load src="./partials/badges.html" />
-    </main>
+<div class="loader">Loading images, please wait...</div>
 
-    <load src="./partials/footer.html" />
+<div class="gallery"></div>
 
+<div class="d-flex justify-content-center p-3">
+  <button class="btn btn-primary text-light is-hidden js-load-more">
+    <span
+      class="spinner spinner-border spinner-border-sm is-hidden js-loader"
+      aria-hidden="true"
+    >
+    </span>
+    <span class="ms-1">Load more</span>
+  </button>
+</div>
+
+<ul class="gallery"></ul>
+<script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.10.0/simple-lightbox.min.js"></script>
+    <script type="module" src="./js/pixabay-api.js"></script>
+    <script type="module" src="./js/render-functions.js"></script>
     <script type="module" src="./main.js"></script>
   </body>
 </html>

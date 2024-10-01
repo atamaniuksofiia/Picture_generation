@@ -6,13 +6,45 @@
 */
 /* Common styles */
 @import url('./reset.css');
-@import url('./base.css');
 @import url('./container.css');
-@import url('./animations.css');
 
-/* Sections style */
-@import url('./header.css');
-@import url('./vite-promo.css');
-@import url('./badges.css');
-@import url('./back-link.css');
-@import url('./footer.css');
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+  gap: 8px;
+}
+.search-form input {
+  font-family: "Montserrat", sans-serif;
+  width: 371pxpx;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.search-form button {
+  font-family: "Montserrat", sans-serif;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 91px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background: #4e75ff;
+  cursor: pointer;
+  color: #fff;
+}
+
+.loader {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
