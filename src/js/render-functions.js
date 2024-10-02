@@ -30,7 +30,7 @@ export async function fetchImages(query, page = 1) {
     }
 }
 
-export function createImageMarkup(images, lightbox) {
+export function createImageMarkup(images) {
     const markup = images
         .map(
             ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
@@ -49,6 +49,5 @@ export function createImageMarkup(images, lightbox) {
         .join('');
 
     const gallery = document.querySelector('.gallery');
-    gallery.innerHTML = markup;
-    lightbox.refresh(); // Оновлюємо lightbox
+    gallery.insertAdjacentHTML('beforeend', markup);
 }

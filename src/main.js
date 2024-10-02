@@ -8,12 +8,15 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
-const loadMoreBtn = document.querySelector('.js-load-more');
+const loadMoreBtn = document.querySelector('.js-btn-load');
+const loader = document.querySelector('.loader');
 
 let query = '';
 let page = 1;
 
 const lightbox = new SimpleLightbox('.gallery a');
+
+loadMoreBtn.classList.add('is-hidden');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -33,8 +36,8 @@ form.addEventListener('submit', async (event) => {
 
     try {
         const images = await fetchImages(query, page);
-        const markup = createImageMarkup(images);
-        gallery.innerHTML = markup;
+        createImageMarkup(images);
+        lightbox.refresh(); 
         loadMoreBtn.classList.remove('is-hidden');
     } catch (error) {
         console.error(error);
@@ -42,6 +45,8 @@ form.addEventListener('submit', async (event) => {
             title: 'Error',
             message: 'An error occurred while fetching images. Please try again later.',
         });
+    } finally {
+        loader.classList.add('is-hidden');
     }
 });
 
@@ -49,12 +54,15 @@ loadMoreBtn.addEventListener('click', async () => {
     page += 1;
     try {
         const images = await fetchImages(query, page);
-        createImageMarkup(images, lightbox); // Передаємо lightbox
+        createImageMarkup(images,);
+        lightbox.refresh();
     } catch (error) {
         console.error(error);
         iziToast.error({
             title: 'Error',
             message: 'An error occurred while fetching images. Please try again later.',
         });
+    } finally {
+        loader.classList.add('is-hidden');
     }
 });
