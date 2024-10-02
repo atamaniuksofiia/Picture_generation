@@ -33,12 +33,20 @@ form.addEventListener('submit', async (event) => {
     gallery.innerHTML = '';
     page = 1;
     loadMoreBtn.classList.add('is-hidden');
+    loader.classList.remove('is-hidden');
 
     try {
         const images = await fetchImages(query, page);
-        createImageMarkup(images);
-        lightbox.refresh(); 
-        loadMoreBtn.classList.remove('is-hidden');
+        if (images.length === 0) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Sorry, there are no images matching your search query. Please try again!',
+            });
+        } else {
+            createImageMarkup(images);
+            lightbox.refresh();
+            loadMoreBtn.classList.remove('is-hidden');
+        }
     } catch (error) {
         console.error(error);
         iziToast.error({
@@ -54,8 +62,20 @@ loadMoreBtn.addEventListener('click', async () => {
     page += 1;
     try {
         const images = await fetchImages(query, page);
-        createImageMarkup(images,);
-        lightbox.refresh();
+        if (images.length === 0) {
+            iziToast.error({
+                title: 'Error',
+                message: 'Sorry, there are no images matching your search query. Please try again!',
+            });
+        } else {
+            createImageMarkup(images);
+            lightbox.refresh();
+        }
+        const galleryItemHeight = document.querySelector('.gallery-item')?.getBoundingClientRect().height || 0;
+        window.scrollBy({
+            top: galleryItemHeight * 2,
+            behavior: 'smooth',
+        });
     } catch (error) {
         console.error(error);
         iziToast.error({

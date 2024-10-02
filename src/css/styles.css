@@ -56,9 +56,6 @@
   letter-spacing: 0.04em;
   color: #2e2f42;
 }
-.is-hidden {
-  display: none;
-}
 
 .gallery {
   display: grid;
@@ -125,7 +122,6 @@ padding: 8px 16px;
 width: 125px;
 height: 40px;
 background: #4e75ff;
-display: flex;
 align-items: center;
 justify-content: center;
 flex-direction: row;
@@ -133,4 +129,9 @@ gap: 10px;
 margin: auto;
 border: 1px solid #ccc;
 margin-top: 20px;
+display: flex;
+}
+
+.is-hidden {
+  display: none;
 }
