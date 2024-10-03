@@ -38,7 +38,8 @@ form.addEventListener('submit', async (event) => {
     loader.classList.remove('is-hidden');
 
     try {
-        const images = await fetchImages(query, page);
+        const { images, totalHits: total } = await fetchImages(query, page);
+        totalHits = total; // зберігаємо totalHits
         if (images.length === 0) {
             iziToast.error({
                 title: 'Error',
@@ -65,8 +66,7 @@ loadMoreBtn.addEventListener('click', async () => {
     page += 1;
     loader.classList.remove('is-hidden');
     try {
-        const data = await fetchImages(query, page);
-        const images =  Array.isArray(data.hits) ? data.hits : [];
+        const { images, totalHits: total } = await fetchImages(query, page);
         if (images.length === 0) {
             iziToast.error({
                 title: 'Error',

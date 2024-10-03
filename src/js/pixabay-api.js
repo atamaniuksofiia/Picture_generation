@@ -7,8 +7,10 @@ export async function fetchImages(query, page) {
         throw new Error('Failed to fetch images');
     }
     const data = await response.json();
-    return Array.isArray(data.hits) ? data.hits : [];
-    // { images: data.hits, totalHits: data.totalHits };
+    return {
+        images: Array.isArray(data.hits) ? data.hits : [],
+        totalHits: data.totalHits,
+    };
 }
 
 
