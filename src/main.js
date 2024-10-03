@@ -14,6 +14,7 @@ const loader = document.querySelector('.loader');
 
 let query = '';
 let page = 1;
+let totalHits = 0;
 
 const lightbox = new SimpleLightbox('.gallery a');
 
@@ -59,11 +60,13 @@ form.addEventListener('submit', async (event) => {
     }
 });
 
+
 loadMoreBtn.addEventListener('click', async () => {
     page += 1;
     loader.classList.remove('is-hidden');
     try {
-        const images = await fetchImages(query, page);
+        const data = await fetchImages(query, page);
+        const images =  Array.isArray(data.hits) ? data.hits : [];
         if (images.length === 0) {
             iziToast.error({
                 title: 'Error',
@@ -74,6 +77,9 @@ loadMoreBtn.addEventListener('click', async () => {
         } else {
             createImageMarkup(images);
             lightbox.refresh();
+             if (images.length < 15 || page * 15 >= totalHits) {
+                loadMoreBtn.classList.add('is-hidden');
+            }
         }
         const galleryItemHeight = document.querySelector('.gallery-item')?.getBoundingClientRect().height || 0;
         window.scrollBy({
@@ -81,7 +87,6 @@ loadMoreBtn.addEventListener('click', async () => {
             behavior: 'smooth',
         });
     } catch (error) {
-        console.error(error);
         iziToast.error({
             title: 'Error',
             message: 'An error occurred while fetching images. Please try again later.',
