@@ -1,4 +1,5 @@
-import { fetchImages, createImageMarkup } from './js/render-functions';
+import {createImageMarkup } from './js/render-functions';
+import {fetchImages } from './js/pixabay-api';
 import { BASE_URL, API_KEY } from './js/pixabay-api.js';
 import axios from 'axios';
 import iziToast from 'izitoast';
@@ -60,6 +61,7 @@ form.addEventListener('submit', async (event) => {
 
 loadMoreBtn.addEventListener('click', async () => {
     page += 1;
+    loader.classList.remove('is-hidden');
     try {
         const images = await fetchImages(query, page);
         if (images.length === 0) {
@@ -67,6 +69,8 @@ loadMoreBtn.addEventListener('click', async () => {
                 title: 'Error',
                 message: 'Sorry, there are no images matching your search query. Please try again!',
             });
+            loadMoreBtn.classList.add('is-hidden');
+            return;
         } else {
             createImageMarkup(images);
             lightbox.refresh();
