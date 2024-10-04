@@ -56,6 +56,7 @@ form.addEventListener('submit', async (event) => {
             title: 'Error',
             message: 'An error occurred while fetching images. Please try again later.',
         });
+        loadMoreBtn.style.display = 'none';
     } finally {
         loader.classList.add('is-hidden');
     }
