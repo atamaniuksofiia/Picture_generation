@@ -65,8 +65,11 @@ form.addEventListener('submit', async (event) => {
 
 loadMoreBtn.addEventListener('click', async () => {
     page += 1;
+    loadMoreBtn.classList.add('is-hidden');
     loader.classList.remove('is-hidden');
 
+    page += 1;
+    
     try {
         const { images, totalHits: total } = await fetchImages(query, page);
         
@@ -77,15 +80,16 @@ loadMoreBtn.addEventListener('click', async () => {
             });
             loadMoreBtn.classList.add('is-hidden');
             return;
-        } else {
+         } 
             createImageMarkup(images);
             lightbox.refresh();
 
              if (images.length < 15 || page * 15 >= totalHits) {
                 loadMoreBtn.classList.add('is-hidden');
+            }  else {
+                loadMoreBtn.classList.remove('is-hidden');
             }
-        }
-        
+
         const galleryItemHeight = document.querySelector('.gallery-item')?.getBoundingClientRect().height || 0;
         window.scrollBy({
             top: galleryItemHeight * 2,
