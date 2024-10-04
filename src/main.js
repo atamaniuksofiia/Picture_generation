@@ -18,8 +18,6 @@ let totalHits = 0;
 
 const lightbox = new SimpleLightbox('.gallery a');
 
-loadMoreBtn.classList.add('is-hidden');
-
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
     query = document.querySelector('input[name="query"]').value.trim();
@@ -34,7 +32,6 @@ form.addEventListener('submit', async (event) => {
 
     gallery.innerHTML = '';
     page = 1;
-    loadMoreBtn.classList.add('is-hidden');
     loader.classList.remove('is-hidden');
 
     try {
@@ -49,7 +46,9 @@ form.addEventListener('submit', async (event) => {
         } else {
             createImageMarkup(images);
             lightbox.refresh();
-            loadMoreBtn.classList.toggle('is-hidden', totalHits <= 15);
+            if (totalHits > 15) {
+                loadMoreBtn.style.display = 'block'; 
+            }
         }
     } catch (error) {
         console.error(error);
@@ -65,7 +64,7 @@ form.addEventListener('submit', async (event) => {
 
 loadMoreBtn.addEventListener('click', async () => {
     page += 1;
-    loadMoreBtn.classList.add('is-hidden');
+    loadMoreBtn.style.display = 'none'; 
     loader.classList.remove('is-hidden');
 
     page += 1;
@@ -78,16 +77,16 @@ loadMoreBtn.addEventListener('click', async () => {
                 title: 'Error',
                 message: 'Sorry, there are no images matching your search query. Please try again!',
             });
-            loadMoreBtn.classList.add('is-hidden');
+            loadMoreBtn.classList.remove('is-visible');;
             return;
          } 
             createImageMarkup(images);
             lightbox.refresh();
 
              if (images.length < 15 || page * 15 >= totalHits) {
-                loadMoreBtn.classList.add('is-hidden');
+                loadMoreBtn.style.display = 'none';  
             }  else {
-                loadMoreBtn.classList.remove('is-hidden');
+                loadMoreBtn.style.display = 'block';
             }
 
         const galleryItemHeight = document.querySelector('.gallery-item')?.getBoundingClientRect().height || 0;

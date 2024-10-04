@@ -24,7 +24,7 @@
 }
 .search-form input {
   font-family: "Montserrat", sans-serif;
-  width: 371pxpx;
+  width: 371px;
   height: 40px;
   padding: 0 10px;
   font-size: 16px;
@@ -130,6 +130,10 @@ margin: auto;
 border: 1px solid #ccc;
 margin-top: 20px;
 display: flex;
+}
+
+.js-btn-load {
+  display: none;
 }
 
 .is-hidden {
