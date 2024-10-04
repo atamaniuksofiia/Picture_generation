@@ -22,8 +22,8 @@ loadMoreBtn.classList.add('is-hidden');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
-
     query = document.querySelector('input[name="query"]').value.trim();
+
     if (!query) {
         iziToast.error({
             title: 'Error',
@@ -39,7 +39,8 @@ form.addEventListener('submit', async (event) => {
 
     try {
         const { images, totalHits: total } = await fetchImages(query, page);
-        totalHits = total; // зберігаємо totalHits
+        totalHits = total; 
+
         if (images.length === 0) {
             iziToast.error({
                 title: 'Error',
@@ -48,7 +49,7 @@ form.addEventListener('submit', async (event) => {
         } else {
             createImageMarkup(images);
             lightbox.refresh();
-            loadMoreBtn.classList.remove('is-hidden');
+            loadMoreBtn.classList.toggle('is-hidden', totalHits <= 15);
         }
     } catch (error) {
         console.error(error);
@@ -65,8 +66,10 @@ form.addEventListener('submit', async (event) => {
 loadMoreBtn.addEventListener('click', async () => {
     page += 1;
     loader.classList.remove('is-hidden');
+
     try {
         const { images, totalHits: total } = await fetchImages(query, page);
+        
         if (images.length === 0) {
             iziToast.error({
                 title: 'Error',
@@ -77,10 +80,12 @@ loadMoreBtn.addEventListener('click', async () => {
         } else {
             createImageMarkup(images);
             lightbox.refresh();
+
              if (images.length < 15 || page * 15 >= totalHits) {
                 loadMoreBtn.classList.add('is-hidden');
             }
         }
+        
         const galleryItemHeight = document.querySelector('.gallery-item')?.getBoundingClientRect().height || 0;
         window.scrollBy({
             top: galleryItemHeight * 2,
