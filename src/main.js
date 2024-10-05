@@ -32,8 +32,10 @@ form.addEventListener('submit', async (event) => {
 
     gallery.innerHTML = '';
     page = 1;
-    loader.classList.remove('is-hidden');
 
+    loader.classList.remove('is-hidden');
+    loadMoreBtn.style.display = 'none';
+    
     try {
         const { images, totalHits: total } = await fetchImages(query, page);
         totalHits = total; 
@@ -43,11 +45,12 @@ form.addEventListener('submit', async (event) => {
                 title: 'Error',
                 message: 'Sorry, there are no images matching your search query. Please try again!',
             });
+            loadMoreBtn.style.display = 'none'; 
         } else {
             createImageMarkup(images);
             lightbox.refresh();
             if (totalHits > 15) {
-                loadMoreBtn.style.display = 'block'; 
+                loadMoreBtn.style.display = 'block';
             }
         }
     } catch (error) {
@@ -56,7 +59,7 @@ form.addEventListener('submit', async (event) => {
             title: 'Error',
             message: 'An error occurred while fetching images. Please try again later.',
         });
-        loadMoreBtn.style.display = 'none';
+        loadMoreBtn.style.display = 'none'; 
     } finally {
         loader.classList.add('is-hidden');
     }
@@ -65,10 +68,9 @@ form.addEventListener('submit', async (event) => {
 
 loadMoreBtn.addEventListener('click', async () => {
     page += 1;
-    loadMoreBtn.style.display = 'none'; 
     loader.classList.remove('is-hidden');
+    loadMoreBtn.style.display = 'none'; 
 
-    page += 1;
     
     try {
         const { images, totalHits: total } = await fetchImages(query, page);
@@ -78,7 +80,7 @@ loadMoreBtn.addEventListener('click', async () => {
                 title: 'Error',
                 message: 'Sorry, there are no images matching your search query. Please try again!',
             });
-            loadMoreBtn.classList.remove('is-visible');;
+            loadMoreBtn.style.display = 'none';
             return;
          } 
             createImageMarkup(images);
@@ -100,6 +102,7 @@ loadMoreBtn.addEventListener('click', async () => {
             title: 'Error',
             message: 'An error occurred while fetching images. Please try again later.',
         });
+        loadMoreBtn.style.display = 'none';
     } finally {
         loader.classList.add('is-hidden');
     }
