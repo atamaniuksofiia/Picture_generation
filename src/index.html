@@ -13,21 +13,22 @@
   </head>
   <body>
     
-<form class="search-form">
-  <input type="text" class="input-form" name="query" placeholder="Search images..." required >
-  <button type="submit" class="btn-form js-btn">Search</button>
-</form>
+   <form class="search-form">
+     <input type="text" class="input-form" name="query" placeholder="Search images..." required >
+     <button type="submit" class="btn-form js-btn">Search</button>
+   </form>
 
-<ul class="gallery"></ul>
+   <ul class="gallery"></ul>
 
-<button type="button" class="btn-load js-btn-load">Load more</button>
+   <button type="button" class="btn-load js-btn-load">Load more</button>
+   
+   <div class="loader is-hidden">Loading images, please wait...</div>
 
-<div class="loader is-hidden">Loading images, please wait...</div>
-
-<script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.10.0/simple-lightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.10.0/simple-lightbox.min.js"></script>
     <script type="module" src="./js/pixabay-api.js"></script>
     <script type="module" src="./js/render-functions.js"></script>
     <script type="module" src="./main.js"></script>
+
   </body>
 </html>
