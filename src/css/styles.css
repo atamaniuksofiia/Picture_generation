@@ -1,4 +1,9 @@
-/* Common styles */
+/**
+  |============================
+  | include css partials with
+  | default @import url()
+  |============================
+*//* Common styles */
 @import url('./reset.css');
 @import url('./container.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
